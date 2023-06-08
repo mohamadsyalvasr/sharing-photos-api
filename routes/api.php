@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register']);
-Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login']);
-
 Route::prefix('v1')->group(function () {
+    Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register']);
+    Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login']);
+
     Route::prefix('photos')->group(function () {
         Route::get('/', [App\Http\Controllers\API\PhotoController::class, 'index']);
         Route::get('/photos/{photo}', [App\Http\Controllers\API\PhotoController::class, 'show']);

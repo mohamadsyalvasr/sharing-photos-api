@@ -23,7 +23,8 @@ class PhotoResource extends JsonResource
             'updatedAt' => $this->updated_at,
             'author' => [
                 'name' => $this->user->name
-            ]
+            ],
+            'likedBy' => $this->likes->pluck('name')
         ];
     }
 }

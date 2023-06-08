@@ -14,12 +14,19 @@ use App\Traits\FileHandlingTraits;
 class PhotoController extends Controller
 {
     use FileHandlingTraits;
+
+    protected Photo $photo;
+
+    public function __construct(Photo $photo)
+    {
+        $this->photo = $photo;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index(): PhotoCollection
     {
-        return new PhotoCollection(Photo::with(['user:id,name', 'tags'])->simplePaginate(20));
+        return new PhotoCollection($this->photo->simplePaginate(20));
     }
 
     /**
@@ -87,6 +94,6 @@ class PhotoController extends Controller
      */
     protected function photoResponse(Photo $photo): PhotoResource
     {
-        return new PhotoResource($photo->load('user', 'tags'));
+        return new PhotoResource($photo->load('user', 'tags', 'likes'));
     }
 }
